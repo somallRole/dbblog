@@ -1,13 +1,13 @@
-package cn.dblearn.blog.entity.book.dto;
+package cn.dblearn.blog.entity.article.dto;
 
-import cn.dblearn.blog.entity.book.BookNote;
+import cn.dblearn.blog.entity.article.Article;
 import cn.dblearn.blog.entity.operation.Tag;
 import lombok.Data;
 
 import java.util.List;
 
 /**
- * BookNote
+ * ArticleDto
  *
  * @author bobbi
  * @date 2019/01/08 19:04
@@ -15,7 +15,7 @@ import java.util.List;
  * @description
  */
 @Data
-public class BookNoteDto extends BookNote {
+public class ArticleDTO extends Article {
 
     private List<Tag> tagList;
 

@@ -1,3 +1,5 @@
+> QQ群号码：764251186 欢迎互相交流
+
 ## 简介
 这是一个基于Springboot2.x，vue2.x的前后端分离的开源博客系统，提供 前端界面+管理界面+后台服务 的整套系统源码。响应式设计，手机、平板、PC，都有良好的视觉效果！
 
@@ -67,7 +69,6 @@ dbblog-core -> dbblog-auth -> dbblog-manage -> dbblog-portal -> dbblog-search
     └── modules
         ├── article    # 文章模块
         ├── book       # 阅读模块
-        ├── comment    # 评论模块
         ├── operation  # 运维模块
         └── sys        # 系统模块
 
@@ -84,7 +85,6 @@ dbblog-core -> dbblog-auth -> dbblog-manage -> dbblog-portal -> dbblog-search
 │   │   ├── BookContent.vue         # 图书详情页
 │   │   ├── BookListContent.vue     # 图书列表页
 │   │   ├── BookNoteContent.vue     # 笔记详情页
-│   │   ├── BookNoteListContent.vue # 笔记列表页
 │   │   ├── HomeContent.vue         # 首页
 │   │   ├── SearchResult.vue        # 搜索结果页
 │   │   └── TimeLineContent.vue     # 归档页
@@ -112,7 +112,7 @@ dbblog-core -> dbblog-auth -> dbblog-manage -> dbblog-portal -> dbblog-search
 - Redis
 - IDEA编译器
 - Lombox插件（百度一下）
-- ElasticSearch
+- ElasticSearch 6.x
 - RabbitMQ
 - IDEA编译器
 
@@ -129,6 +129,7 @@ dbblog-core -> dbblog-auth -> dbblog-manage -> dbblog-portal -> dbblog-search
 部署步骤：
 1. 导入项目，运行 npm install（如果失败，清空包后试试cnpm install）
 2. 启动项目：npm run dev
+3. 前端地址：localhost:8002 管理界面地址：localhost:8888  账号admin，密码123456
 
 ## 界面预览
 

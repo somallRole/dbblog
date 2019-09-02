@@ -53,15 +53,12 @@
               </v-tab>
             </vue-tabs>
           </div>
-          <social-section  :likeNum="book.likeNum" ></social-section>
+          <social-section  :post-id="book.id" :type="'Book'" ></social-section>
         </div>
       </iv-col>
       <iv-col :xs="0" :sm="0" :md="0" :lg="7">
         <div class="layout-right">
           <recommend></recommend>
-          <!--<iv-affix :offset-top="60" >-->
-            <!--<side-toc style="margin-top: 15px;"  ></side-toc>-->
-          <!--</iv-affix>-->
         </div>
       </iv-col>
     </iv-row>
@@ -106,6 +103,7 @@ export default {
       }).then(({data}) => {
         if (data && data.code === 200) {
           this.book = data.book
+          document.title = this.book.title + ' | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
         }
       })
     }
@@ -120,15 +118,14 @@ export default {
   .book-overview-content
     width auto
     @media only screen and (max-width: 768px)
-      margin 5px 5px 0 5px
+      margin 5px 5px 10px 5px
     @media screen and (min-width: 768px)
-      margin 10px 10px 0 10px
+      margin 10px 10px 20px 10px
     @media screen and (min-width: 992px)
-      margin 15px 35px 0 35px
+      margin 15px 35px 50px 35px
     @media screen and (min-width: 1200px)
       width 1200px
       margin 15px auto 0
-      margin-bottom 200px
     .layout-left, .layout-right
       padding 0
       @media only screen and (max-width: 768px)

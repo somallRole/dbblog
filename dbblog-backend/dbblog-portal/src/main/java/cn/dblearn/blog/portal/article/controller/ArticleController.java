@@ -2,14 +2,17 @@ package cn.dblearn.blog.portal.article.controller;
 
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.util.PageUtils;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import cn.dblearn.blog.portal.article.service.ArticleService;
 import cn.dblearn.blog.portal.common.annotation.LogLike;
 import cn.dblearn.blog.portal.common.annotation.LogView;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -21,15 +24,16 @@ import java.util.Map;
  * @since 2018-11-07
  */
 @RestController("articlePortalController")
+@CacheConfig(cacheNames = {RedisCacheNames.ARTICLE})
 public class ArticleController {
 
-    @Autowired
+    @Resource
     private ArticleService articleService;
 
     @GetMapping("/article/{articleId}")
     @LogView(type = "article")
     public Result getArticle(@PathVariable Integer articleId){
-        ArticleVo article = articleService.getArticleVo(articleId);
+        ArticleVO article = articleService.getArticleVo(articleId);
         return Result.ok().put("article",article);
     }
 
@@ -40,9 +44,11 @@ public class ArticleController {
     }
 
     @GetMapping("/articles")
-    public Result listLatest(@RequestParam Map<String, Object> params){
+    @Cacheable
+    public Result list(@RequestParam Map<String, Object> params){
         PageUtils page = articleService.queryPageCondition(params);
         return Result.ok().put("page",page);
     }
+
 
 }

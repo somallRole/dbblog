@@ -4,8 +4,8 @@ import cn.dblearn.blog.common.enums.ModuleEnum;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.util.Query;
 import cn.dblearn.blog.entity.article.Article;
-import cn.dblearn.blog.entity.article.dto.ArticleDto;
-import cn.dblearn.blog.entity.article.vo.ArticleVo;
+import cn.dblearn.blog.entity.article.dto.ArticleDTO;
+import cn.dblearn.blog.entity.article.vo.ArticleVO;
 import cn.dblearn.blog.mapper.article.ArticleMapper;
 import cn.dblearn.blog.manage.article.service.ArticleService;
 import cn.dblearn.blog.entity.operation.Category;
@@ -49,8 +49,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
-        Page<ArticleVo> page = new Query<ArticleVo>(params).getPage();
-        List<ArticleVo> articleList = baseMapper.listArticleVo(page, params);
+        Page<ArticleVO> page = new Query<ArticleVO>(params).getPage();
+        List<ArticleVO> articleList = baseMapper.listArticleVo(page, params);
         // 查询所有分类
         List<Category> categoryList = categoryService.list(new QueryWrapper<Category>().lambda().eq(Category::getType,ModuleEnum.ARTICLE.getValue()));
         // 封装ArticleVo
@@ -74,7 +74,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void saveArticle(ArticleDto article) {
+    public void saveArticle(ArticleDTO article) {
         baseMapper.insert(article);
         tagService.saveTagAndNew(article.getTagList(),article.getId(),ModuleEnum.ARTICLE.getValue());
     }
@@ -86,7 +86,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void updateArticle(ArticleDto article) {
+    public void updateArticle(ArticleDTO article) {
         // 删除多对多所属标签
         tagService.deleteTagLink(article.getId(),ModuleEnum.ARTICLE.getValue());
         // 更新所属标签
@@ -102,8 +102,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return
      */
     @Override
-    public ArticleDto getArticle(Integer articleId) {
-        ArticleDto articleDto = new ArticleDto();
+    public ArticleDTO getArticle(Integer articleId) {
+        ArticleDTO articleDto = new ArticleDTO();
         Article article = this.baseMapper.selectById(articleId);
         BeanUtils.copyProperties(article,articleDto);
         // 查询所属标签

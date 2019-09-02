@@ -6,13 +6,12 @@
     <p class="title">{{bookNote.title}}</p>
     <iv-row>
       <iv-col :xs="24" :sm="10" :md="10" :lg="10" style="padding-left: 0;padding-right: 0;">
-        <p class="info"><span class="author">By / <a href="">{{bookNote.author}}</a></span><span
-                class="publish-time">  At time / <a href="">{{bookNote.createTime | socialDate }}</a></span></p>
+        <p class="info"><span class="author">By / <a >{{bookNote.author}}</a></span><span
+                class="publish-time">  At time / <a >{{bookNote.createTime | socialDate }}</a></span></p>
       </iv-col>
       <iv-col :xs="24" :sm="14" :md="14" :lg="14" style="padding-left: 0;padding-right: 0;">
         <p class="operate_info">
           <span class="readings"><a ><iv-icon type="eye"></iv-icon> {{bookNote.readNum}} 阅读</a></span> |
-          <span class="comments"><a ><iv-icon type="compose"></iv-icon> {{bookNote.commentNum}} 评论</a></span> |
           <span class="likes"><a @click="likePost(bookNote)"><iv-icon type="heart"></iv-icon> {{bookNote.likeNum}} 喜欢</a></span>
         </p>
       </iv-col>

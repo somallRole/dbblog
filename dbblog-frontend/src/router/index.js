@@ -14,7 +14,6 @@ import ArticleContent from '@/components/content/ArticleContent'
 import BookNoteContent from '@/components/content/BookNoteContent'
 import BookContent from '@/components/content/BookContent'
 import ArticleListContent from '@/components/content/ArticleListContent'
-import BookNoteListContent from '@/components/content/BookNoteListContent'
 import BookListContent from '@/components/content/BookListContent'
 import TimeLineContent from '@/components/content/TimeLineContent'
 import SearchResultContent from '@/components/content/SearchResultContent'
@@ -37,6 +36,9 @@ let router = new Router({
             header: SimpleHeader,
             content: HomeContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: 'Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -55,6 +57,9 @@ let router = new Router({
             header: SimpleHeader,
             content: ArticleListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '博文列表 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -64,6 +69,9 @@ let router = new Router({
             header: SimpleHeader,
             content: ArticleListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '博文列表 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -73,6 +81,9 @@ let router = new Router({
             header: SimpleHeader,
             content: SearchResultContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '博文搜索 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -81,15 +92,6 @@ let router = new Router({
           components: {
             header: SimpleHeader,
             content: BookNoteContent,
-            footer: CommonFooter
-          }
-        },
-        {
-          path: 'bookNotes',
-          name: 'bookNotes',
-          components: {
-            header: SimpleHeader,
-            content: BookNoteListContent,
             footer: CommonFooter
           }
         },
@@ -109,6 +111,9 @@ let router = new Router({
             header: SimpleHeader,
             content: BookListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '阅读 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -118,6 +123,9 @@ let router = new Router({
             header: SimpleHeader,
             content: BookListContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '阅读 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         },
         {
@@ -127,6 +135,9 @@ let router = new Router({
             header: SimpleHeader,
             content: TimeLineContent,
             footer: CommonFooter
+          },
+          meta: {
+            title: '时间轴 | Bobbi的个人博客 | 一个努力成长中的Java后端程序猿'
           }
         }
       ]
@@ -143,6 +154,9 @@ LoadingBar.config({
 
 router.beforeEach((to, from, next) => {
   LoadingBar.start()
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   next()
 })
 

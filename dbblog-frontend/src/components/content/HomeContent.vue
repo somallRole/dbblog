@@ -11,7 +11,7 @@
             <title-menu-filter @filterByMenu="refreshBook"  slot="menu"></title-menu-filter>
           </section-title>
           <book-list-cell v-for="book in bookList" :book="book" :key="book.title" :type="'book'"></book-list-cell>
-          <section-title :mainTitle="'笔记'" :subTitle="'Notes'" :tipText="'View More'" :tipHref="'/bookNotes'">
+          <section-title :mainTitle="'笔记'" :subTitle="'Notes'" :tipText="'View More'" :tipHref="'/books'">
             <title-menu-filter @filterByMenu="refreshBookNote"  slot="menu" :menu-filter-list="bookNoteFilterList"></title-menu-filter>
           </section-title>
           <book-note-list-cell v-for="bookNote in bookNoteList" :bookNote="bookNote" :key="bookNote.title"></book-note-list-cell>
@@ -91,7 +91,7 @@ export default {
       let params = merge(param, this.pageParam)
       this.$http({
         url: this.$http.adornUrl('/articles'),
-        params: this.$http.adornParams(params),
+        params: this.$http.adornParams(params, false),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -103,7 +103,7 @@ export default {
       let params = merge(param, this.pageParam)
       this.$http({
         url: this.$http.adornUrl('/books'),
-        params: this.$http.adornParams(params),
+        params: this.$http.adornParams(params, false),
         method: 'get'
       }).then(({data}) => {
         if (data && data.code === 200) {
@@ -115,7 +115,7 @@ export default {
       })
     },
     refreshBookNote (param) {
-      let params = merge(param, this.pageParam)
+      let params = merge(param, this.pageParam, false)
       this.$http({
         url: this.$http.adornUrl('/bookNotes'),
         params: this.$http.adornParams(params),
@@ -134,15 +134,14 @@ export default {
   .home-content
     width auto
     @media only screen and (max-width: 768px)
-      margin 5px 5px 0 5px
+      margin 5px 5px 10px 5px
     @media screen and (min-width: 768px)
-      margin 10px 10px 0 10px
+      margin 10px 10px 20px 10px
     @media screen and (min-width: 992px)
-      margin 15px 35px 0 35px
+      margin 15px 35px 50px 35px
     @media screen and (min-width: 1200px)
       width 1200px
       margin 15px auto 0
-      margin-bottom 200px
       .layout-left, .layout-right
         padding 0
         @media only screen and (max-width: 768px)

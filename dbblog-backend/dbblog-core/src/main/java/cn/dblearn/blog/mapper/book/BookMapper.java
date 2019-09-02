@@ -1,7 +1,7 @@
 package cn.dblearn.blog.mapper.book;
 
 import cn.dblearn.blog.entity.book.Book;
-import cn.dblearn.blog.entity.book.vo.BookVo;
+import cn.dblearn.blog.entity.book.vo.BookVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
@@ -27,7 +27,7 @@ public interface BookMapper extends BaseMapper<Book> {
      * @param params
      * @return
      */
-    List<BookVo> listBookVo(Page<BookVo> page, @Param("params") Map<String, Object> params);
+    List<BookVO> listBookVo(Page<BookVO> page, @Param("params") Map<String, Object> params);
 
     /**
      * 根据条件查询分页
@@ -35,7 +35,7 @@ public interface BookMapper extends BaseMapper<Book> {
      * @param params
      * @return
      */
-    List<BookVo> queryPageCondition(Page<BookVo> page, @Param("params") Map<String, Object> params);
+    List<BookVO> queryPageCondition(Page<BookVO> page, @Param("params") Map<String, Object> params);
 
     /**
      * 更新阅读记录
@@ -55,4 +55,11 @@ public interface BookMapper extends BaseMapper<Book> {
      * @return
      */
     int checkByCategory(Integer categoryId);
+
+    /**
+     * 根据ID查询包含tag，bookNode子列表的Book实体
+     * @param id
+     * @return
+     */
+    BookVO selectByIdWithSubList(Integer id);
 }

@@ -1,17 +1,19 @@
 package cn.dblearn.blog.manage.book.controller;
 
 import cn.dblearn.blog.common.Result;
+import cn.dblearn.blog.common.base.AbstractController;
+import cn.dblearn.blog.common.constants.RedisCacheNames;
 import cn.dblearn.blog.common.util.PageUtils;
 import cn.dblearn.blog.common.validator.ValidatorUtils;
 import cn.dblearn.blog.entity.book.Book;
-import cn.dblearn.blog.entity.book.dto.BookDto;
+import cn.dblearn.blog.entity.book.dto.BookDTO;
 import cn.dblearn.blog.manage.book.service.BookService;
-import cn.dblearn.blog.common.base.AbstractController;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
@@ -24,10 +26,10 @@ import java.util.Map;
  * @since 2019-01-27
  */
 @RestController
-@Slf4j
 @RequestMapping("/admin/book")
+@CacheConfig(cacheNames ={RedisCacheNames.RECOMMEND,RedisCacheNames.TAG,RedisCacheNames.ARTICLE,RedisCacheNames.TIMELINE})
 public class BookController extends AbstractController {
-    @Autowired
+    @Resource
     private BookService bookService;
 
     /**
@@ -58,7 +60,7 @@ public class BookController extends AbstractController {
     @GetMapping("/info/{id}")
     @RequiresPermissions("book:info")
     public Result info(@PathVariable("id") String id) {
-        BookDto book = bookService.getBook(id);
+        BookDTO book = bookService.getBook(id);
         return Result.ok().put("book", book);
     }
 
@@ -66,8 +68,9 @@ public class BookController extends AbstractController {
      * 保存
      */
     @PostMapping("/save")
+    @CacheEvict(allEntries = true)
     @RequiresPermissions("book:save")
-    public Result save(@RequestBody BookDto book) {
+    public Result save(@RequestBody BookDTO book) {
         ValidatorUtils.validateEntity(book);
         bookService.saveBook(book);
 
@@ -78,8 +81,9 @@ public class BookController extends AbstractController {
      * 修改
      */
     @PutMapping("/update")
+    @CacheEvict(allEntries = true)
     @RequiresPermissions("book:update")
-    public Result update(@RequestBody BookDto book) {
+    public Result update(@RequestBody BookDTO book) {
         ValidatorUtils.validateEntity(book);
         bookService.updateBook(book);
         return Result.ok();
@@ -92,6 +96,7 @@ public class BookController extends AbstractController {
      * @return
      */
     @PutMapping("/update/status")
+    @CacheEvict(allEntries = true)
     @RequiresPermissions("book:update")
     public Result updateStatus(@RequestBody Book readBook) {
         bookService.updateById(readBook);
@@ -102,6 +107,7 @@ public class BookController extends AbstractController {
      * 删除
      */
     @DeleteMapping("/delete")
+    @CacheEvict(allEntries = true)
     @RequiresPermissions("book:delete")
     public Result delete(@RequestBody Integer[] ids) {
         bookService.deleteBatch(ids);
